@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正确安全操作视频 - 安全管理学习平台</title>
+    <meta name="description" content="观看正确的安全操作流程，学习遵守规章制度的重要性">
+    <meta name="keywords" content="安全操作,规章制度,安全教育,视频学习">
+
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/video.css">
+
+    <!-- PWA支持 -->
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/pwa/icon-32x32.png">
+    <meta name="theme-color" content="#2563eb">
+</head>
+
+<body class="video-page">
+    <!-- 页面头部 -->
+    <header class="video-header">
+        <div class="container">
+            <div class="video-nav">
+                <button id="back-home" class="btn btn-outline">
+                    <span>←</span> 返回首页
+                </button>
+                <h1 class="video-title">你的选择决定安全分界 - 遵守规章制度</h1>
+                <div class="video-progress">
+                    <span id="video-timer">00:00 / 00:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 视频播放区域 -->
+    <main class="video-main">
+        <div class="video-container" id="video-container">
+            <!-- 视频播放器 -->
+            <video id="main-video" class="video-player" poster="../assets/images/video-poster1.jpg" preload="metadata"
+                playsinline controls>
+                <source src="https://example.com/safety-video-1.mp4" type="video/mp4">
+                <p>您的浏览器不支持视频播放。请更新您的浏览器或下载视频文件观看。</p>
+            </video>
+
+            <!-- 视频加载状态 -->
+            <div id="video-loading" class="video-loading">
+                <div class="loading-spinner"></div>
+                <p>正在加载视频...</p>
+            </div>
+
+            <!-- 视频控制覆盖层 -->
+            <div id="video-overlay" class="video-overlay">
+                <div class="video-center-controls">
+                    <button id="play-pause-btn" class="control-btn control-btn-large" aria-label="播放/暂停">
+                        <span class="play-icon">▶</span>
+                        <span class="pause-icon" style="display: none;">⏸</span>
+                    </button>
+                </div>
+
+                <div class="video-bottom-controls">
+                    <div class="controls-left">
+                        <button id="play-pause-small" class="control-btn" aria-label="播放/暂停">
+                            <span class="play-icon">▶</span>
+                            <span class="pause-icon" style="display: none;">⏸</span>
+                        </button>
+                        <div class="volume-control">
+                            <button id="volume-btn" class="control-btn" aria-label="音量">🔊</button>
+                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1"
+                                value="1">
+                        </div>
+                        <div class="time-display">
+                            <span id="current-time">00:00</span>
+                            <span>/</span>
+                            <span id="duration">00:00</span>
+                        </div>
+                    </div>
+
+                    <div class="controls-center">
+                        <div class="progress-container">
+                            <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="controls-right">
+                        <button id="fullscreen-btn" class="control-btn" aria-label="全屏">⛶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 视频完成界面 -->
+            <div id="video-ended" class="video-ended" style="display: none;">
+                <div class="video-ended-content">
+                    <div class="completion-icon">✅</div>
+                    <h2>视频学习完成！</h2>
+                    <p>您已观看完《遵守规章制度》安全教育视频</p>
+                    <div class="next-actions">
+                        <button id="replay-video" class="btn btn-secondary">重新观看</button>
+                        <button id="go-to-quiz" class="btn btn-primary">开始测试</button>
+                        <button id="next-video" class="btn btn-outline">观看对比视频</button>
+                    </div>
+                    <div class="learning-summary">
+                        <h3>学习要点回顾：</h3>
+                        <ul>
+                            <li>严格遵守操作规程和安全制度</li>
+                            <li>正确使用个人防护用品</li>
+                            <li>及时报告和处理安全隐患</li>
+                            <li>保持良好的安全意识和习惯</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频信息面板 -->
+        <div class="video-info-panel" id="video-info-panel">
+            <div class="container">
+                <div class="video-details">
+                    <h2>关于这个视频</h2>
+                    <div class="video-description">
+                        <p>本视频展示了工作场所中正确的安全操作流程，强调遵守规章制度对保障人员安全的重要性。</p>
+                        <p>通过观看规范的操作步骤，您将了解如何在工作中避免安全风险，建立正确的安全意识。</p>
+                    </div>
+
+                    <div class="video-highlights">
+                        <h3>重点内容：</h3>
+                        <div class="highlight-list">
+                            <div class="highlight-item">
+                                <span class="highlight-time">00:30</span>
+                                <span class="highlight-desc">工作前安全检查流程</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-time">02:15</span>
+                                <span class="highlight-desc">正确佩戴防护用品</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-time">04:20</span>
+                                <span class="highlight-desc">标准操作程序演示</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-time">06:45</span>
+                                <span class="highlight-desc">应急处理措施</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript文件 -->
+    <script src="../assets/js/core/app.js"></script>
+    <script src="../assets/js/components/video-player.js"></script>
+
+    <script>
+        // 初始化视频播放器
+        document.addEventListener('DOMContentLoaded', function () {
+            const player = new VideoPlayer({
+                videoId: 'main-video',
+                videoType: 'safety_correct_operations',
+                videoTitle: '正确安全操作视频',
+                nextVideoUrl: 'video2.html',
+                quizUrl: '../pages/quiz.html',
+                isWarningVideo: false,
+                autoplay: false
+            });
+
+            // 返回首页按钮
+            const backBtn = document.getElementById('back-home');
+            if (backBtn) {
+                backBtn.addEventListener('click', function () {
+                    if (confirm('确定要离开视频页面吗？观看进度将被保存。')) {
+                        player.saveWatchProgress();
+                        window.location.href = '../pages/index.html';
+                    }
+                });
+            }
+
+            // 页面卸载时保存进度
+            window.addEventListener('beforeunload', function () {
+                player.saveWatchProgress();
+            });
+
+            console.log('✅ 正确操作视频页面初始化完成');
+        });
+    </script>
+</body>
+
+</html>

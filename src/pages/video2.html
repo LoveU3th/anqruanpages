@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>违规操作对比视频 - 安全管理学习平台</title>
+    <meta name="description" content="观看违规操作案例，了解不当行为的危险后果">
+    <meta name="keywords" content="违规操作,安全风险,安全教育,对比学习">
+
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/video.css">
+
+    <!-- PWA支持 -->
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/pwa/icon-32x32.png">
+    <meta name="theme-color" content="#2563eb">
+</head>
+
+<body class="video-page video-warning">
+    <!-- 页面头部 -->
+    <header class="video-header">
+        <div class="container">
+            <div class="video-nav">
+                <button id="back-home" class="btn btn-outline">
+                    <span>←</span> 返回首页
+                </button>
+                <h1 class="video-title">你的选择决定安全分界 - 违规操作风险</h1>
+                <div class="video-progress">
+                    <span id="video-timer">00:00 / 00:00</span>
+                </div>
+            </div>
+            <!-- 警告提示 -->
+            <div class="warning-banner">
+                <span class="warning-icon">⚠️</span>
+                <span>注意：本视频包含违规操作示例，仅供学习对比，请勿模仿</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 视频播放区域 -->
+    <main class="video-main">
+        <div class="video-container" id="video-container">
+            <!-- 视频播放器 -->
+            <video id="main-video" class="video-player" poster="../assets/images/video-poster2.jpg" preload="metadata"
+                playsinline controls>
+                <source src="https://example.com/safety-video-2.mp4" type="video/mp4">
+                <p>您的浏览器不支持视频播放。请更新您的浏览器或下载视频文件观看。</p>
+            </video>
+
+            <!-- 视频加载状态 -->
+            <div id="video-loading" class="video-loading">
+                <div class="loading-spinner"></div>
+                <p>正在加载视频...</p>
+            </div>
+
+            <!-- 视频控制覆盖层 -->
+            <div id="video-overlay" class="video-overlay">
+                <div class="video-center-controls">
+                    <button id="play-pause-btn" class="control-btn control-btn-large" aria-label="播放/暂停">
+                        <span class="play-icon">▶</span>
+                        <span class="pause-icon" style="display: none;">⏸</span>
+                    </button>
+                </div>
+
+                <div class="video-bottom-controls">
+                    <div class="controls-left">
+                        <button id="play-pause-small" class="control-btn" aria-label="播放/暂停">
+                            <span class="play-icon">▶</span>
+                            <span class="pause-icon" style="display: none;">⏸</span>
+                        </button>
+                        <div class="volume-control">
+                            <button id="volume-btn" class="control-btn" aria-label="音量">🔊</button>
+                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1"
+                                value="1">
+                        </div>
+                        <div class="time-display">
+                            <span id="current-time">00:00</span>
+                            <span>/</span>
+                            <span id="duration">00:00</span>
+                        </div>
+                    </div>
+
+                    <div class="controls-center">
+                        <div class="progress-container">
+                            <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="controls-right">
+                        <button id="fullscreen-btn" class="control-btn" aria-label="全屏">⛶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 视频完成界面 -->
+            <div id="video-ended" class="video-ended" style="display: none;">
+                <div class="video-ended-content">
+                    <div class="completion-icon warning">⚠️</div>
+                    <h2>对比学习完成！</h2>
+                    <p>您已观看完违规操作案例分析视频</p>
+                    <div class="next-actions">
+                        <button id="replay-video" class="btn btn-secondary">重新观看</button>
+                        <button id="go-to-quiz" class="btn btn-primary">开始测试</button>
+                        <button id="back-to-safe" class="btn btn-outline">回看正确操作</button>
+                    </div>
+                    <div class="learning-summary warning-summary">
+                        <h3>违规行为警示：</h3>
+                        <ul>
+                            <li>忽视安全规程可能导致严重事故</li>
+                            <li>不当操作会危及自身和他人安全</li>
+                            <li>侥幸心理是安全事故的主要原因</li>
+                            <li>安全无小事，每个环节都很重要</li>
+                        </ul>
+                        <div class="reminder-box">
+                            <strong>温馨提醒：</strong>请严格按照第一个视频中的正确流程进行操作，确保工作安全。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 视频信息面板 -->
+        <div class="video-info-panel" id="video-info-panel">
+            <div class="container">
+                <div class="video-details">
+                    <h2>关于这个对比视频</h2>
+                    <div class="video-description">
+                        <p>本视频通过展示违规操作案例，帮助您识别工作中的危险行为，强化安全意识。</p>
+                        <p><strong>注意：</strong>视频中的所有违规操作仅用于教育目的，请勿在实际工作中模仿。</p>
+                    </div>
+
+                    <div class="video-highlights warning-highlights">
+                        <h3>危险行为分析：</h3>
+                        <div class="highlight-list">
+                            <div class="highlight-item warning">
+                                <span class="highlight-time">00:45</span>
+                                <span class="highlight-desc">未进行安全检查的后果</span>
+                                <span class="danger-level">⚠️ 高危</span>
+                            </div>
+                            <div class="highlight-item warning">
+                                <span class="highlight-time">02:30</span>
+                                <span class="highlight-desc">不佩戴防护用品的风险</span>
+                                <span class="danger-level">⚠️ 高危</span>
+                            </div>
+                            <div class="highlight-item warning">
+                                <span class="highlight-time">04:15</span>
+                                <span class="highlight-desc">违反操作程序的危险</span>
+                                <span class="danger-level">🚨 极危</span>
+                            </div>
+                            <div class="highlight-item warning">
+                                <span class="highlight-time">06:20</span>
+                                <span class="highlight-desc">忽视安全警告的后果</span>
+                                <span class="danger-level">🚨 极危</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-note">
+                        <h3>对比学习建议：</h3>
+                        <p>建议您先观看正确操作视频，再观看本对比视频，这样能更清楚地理解正确做法的重要性。</p>
+                        <div class="comparison-links">
+                            <a href="/video1.html" class="btn btn-safe">观看正确操作视频</a>
+                            <a href="/quiz2.html" class="btn btn-primary">测试违规识别能力</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript文件 -->
+    <script src="../assets/js/core/app.js"></script>
+    <script src="../assets/js/components/video-player.js"></script>
+
+    <script>
+        // 初始化视频播放器
+        document.addEventListener('DOMContentLoaded', function () {
+            const player = new VideoPlayer({
+                videoId: 'main-video',
+                videoType: 'safety_violation_comparison',
+                videoTitle: '违规操作对比视频',
+                nextVideoUrl: null, // 这是最后一个视频
+                quizUrl: '../pages/quiz.html',
+                isWarningVideo: true,
+                autoplay: false
+            });
+
+            // 返回首页按钮
+            const backBtn = document.getElementById('back-home');
+            if (backBtn) {
+                backBtn.addEventListener('click', function () {
+                    if (confirm('确定要离开视频页面吗？观看进度将被保存。')) {
+                        player.saveWatchProgress();
+                        window.location.href = '../pages/index.html';
+                    }
+                });
+            }
+
+            // 观看正确操作视频按钮
+            const safeBtn = document.getElementById('back-to-safe');
+            if (safeBtn) {
+                safeBtn.addEventListener('click', function () {
+                    player.saveWatchProgress();
+                    window.location.href = 'video1.html';
+                });
+            }
+
+            // 页面卸载时保存进度
+            window.addEventListener('beforeunload', function () {
+                player.saveWatchProgress();
+            });
+
+            console.log('✅ 违规操作对比视频页面初始化完成');
+        });
+    </script>
+</body>
+
+</html>
