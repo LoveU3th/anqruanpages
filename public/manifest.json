@@ -1,0 +1,136 @@
+{
+    "name": "安全管理交互学习平台",
+    "short_name": "安全学习",
+    "description": "企业安全管理交互式学习平台，提供视频学习、知识测试和数据统计功能",
+    "version": "1.0.0",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#2563eb",
+    "background_color": "#ffffff",
+    "scope": "/",
+    "lang": "zh-CN",
+    "dir": "ltr",
+    "categories": [
+        "education",
+        "business",
+        "productivity"
+    ],
+    "screenshots": [
+        {
+            "src": "/assets/images/screenshots/desktop-home.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide",
+            "label": "桌面端首页截图"
+        },
+        {
+            "src": "/assets/images/screenshots/mobile-home.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "platform": "narrow",
+            "label": "移动端首页截图"
+        }
+    ],
+    "icons": [
+        {
+            "src": "/assets/images/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-152x152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/images/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "视频学习",
+            "short_name": "视频",
+            "description": "观看安全培训视频",
+            "url": "/video1",
+            "icons": [
+                {
+                    "src": "/assets/images/icons/video-shortcut.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "知识测试",
+            "short_name": "测试",
+            "description": "参加安全知识测试",
+            "url": "/quiz1",
+            "icons": [
+                {
+                    "src": "/assets/images/icons/quiz-shortcut.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "学习统计",
+            "short_name": "统计",
+            "description": "查看学习进度和统计",
+            "url": "/#stats",
+            "icons": [
+                {
+                    "src": "/assets/images/icons/stats-shortcut.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "edge_side_panel": {
+        "preferred_width": 400
+    },
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
+    "handle_links": "preferred",
+    "capture_links": "existing-client-navigate"
+}
