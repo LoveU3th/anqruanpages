@@ -65,63 +65,181 @@
 
 ### 项目文件结构
 
-整个应用采用现代前端项目结构，便于开发、维护和部署：
+项目采用现代前端工程化结构，优化了GitHub到Cloudflare Pages的自动化部署流程：
 
 ```
-project-root/
-├── public/                          # 静态资源目录
-│   ├── index.html                   # 主页面入口
-│   ├── video1.html                  # 安全操作视频页面
-│   ├── video2.html                  # 违规操作视频页面
-│   ├── quiz1.html                   # 主动安全意识测试页面
-│   ├── quiz2.html                   # 违规操作测试页面
-│   ├── admin.html                   # 管理页面
-│   ├── manifest.json                # PWA配置文件
-│   ├── sw.js                        # Service Worker
-│   ├── assets/                      # 静态资源
-│   │   ├── css/                     # 样式文件
-│   │   │   ├── main.css             # 主样式文件
-│   │   │   ├── components.css       # 组件样式
-│   │   │   ├── pages.css            # 页面特定样式
-│   │   │   └── admin.css            # 管理页面样式
-│   │   ├── js/                      # JavaScript文件
-│   │   │   ├── app.js               # 主应用逻辑
-│   │   │   ├── router.js            # 路由管理
-│   │   │   ├── video-player.js      # 视频播放器
-│   │   │   ├── quiz-system.js       # 答题系统
-│   │   │   ├── data-manager.js      # 数据管理
-│   │   │   ├── ui-components.js     # UI组件
-│   │   │   ├── utils.js             # 工具函数
-│   │   │   └── admin.js             # 管理系统
+anquanpages/                         # 项目根目录
+├── .github/                         # GitHub配置目录
+│   ├── workflows/                   # GitHub Actions工作流
+│   │   ├── deploy.yml               # 自动部署到Cloudflare Pages
+│   │   ├── test.yml                 # 代码质量检查和测试
+│   │   └── security.yml             # 安全扫描工作流
+│   ├── ISSUE_TEMPLATE/              # Issue模板
+│   │   ├── bug_report.md            # Bug报告模板
+│   │   └── feature_request.md       # 功能请求模板
+│   └── pull_request_template.md     # PR模板
+├── docs/                            # 项目文档
+│   ├── api/                         # API文档
+│   │   ├── questions.md             # 题目API文档
+│   │   ├── videos.md                # 视频API文档
+│   │   └── admin.md                 # 管理API文档
+│   ├── deployment.md                # 部署指南
+│   ├── development.md               # 开发指南
+│   └── user-guide.md                # 用户使用指南
+├── src/                             # 源代码目录
+│   ├── pages/                       # 页面源代码
+│   │   ├── index.html               # 首页模板
+│   │   ├── video1.html              # 安全操作视频页面
+│   │   ├── video2.html              # 违规操作视频页面
+│   │   ├── quiz1.html               # 主动安全意识测试页面
+│   │   ├── quiz2.html               # 违规操作测试页面
+│   │   └── admin.html               # 管理页面
+│   ├── assets/                      # 静态资源源文件
+│   │   ├── css/                     # 样式源文件
+│   │   │   ├── base/                # 基础样式
+│   │   │   │   ├── reset.css        # 样式重置
+│   │   │   │   ├── variables.css    # CSS变量定义
+│   │   │   │   └── typography.css   # 字体和排版
+│   │   │   ├── components/          # 组件样式
+│   │   │   │   ├── button.css       # 按钮组件
+│   │   │   │   ├── modal.css        # 模态框组件
+│   │   │   │   ├── progress.css     # 进度条组件
+│   │   │   │   └── notification.css # 通知组件
+│   │   │   ├── pages/               # 页面特定样式
+│   │   │   │   ├── home.css         # 首页样式
+│   │   │   │   ├── video.css        # 视频页面样式
+│   │   │   │   ├── quiz.css         # 答题页面样式
+│   │   │   │   └── admin.css        # 管理页面样式
+│   │   │   └── main.css             # 主样式入口文件
+│   │   ├── js/                      # JavaScript源文件
+│   │   │   ├── core/                # 核心模块
+│   │   │   │   ├── app.js           # 应用主入口
+│   │   │   │   ├── router.js        # 路由管理
+│   │   │   │   ├── config.js        # 配置管理
+│   │   │   │   └── constants.js     # 常量定义
+│   │   │   ├── modules/             # 功能模块
+│   │   │   │   ├── video-player.js  # 视频播放器
+│   │   │   │   ├── quiz-system.js   # 答题系统
+│   │   │   │   ├── data-manager.js  # 数据管理
+│   │   │   │   └── auth-manager.js  # 认证管理
+│   │   │   ├── components/          # UI组件
+│   │   │   │   ├── modal.js         # 模态框组件
+│   │   │   │   ├── progress-bar.js  # 进度条组件
+│   │   │   │   ├── notification.js  # 通知组件
+│   │   │   │   └── loader.js        # 加载器组件
+│   │   │   ├── utils/               # 工具函数
+│   │   │   │   ├── api.js           # API请求工具
+│   │   │   │   ├── storage.js       # 存储工具
+│   │   │   │   ├── validation.js    # 数据验证工具
+│   │   │   │   └── helpers.js       # 通用助手函数
+│   │   │   └── admin/               # 管理系统
+│   │   │       ├── admin-main.js    # 管理系统主入口
+│   │   │       ├── question-manager.js # 题目管理
+│   │   │       ├── video-manager.js # 视频管理
+│   │   │       └── stats-viewer.js  # 统计查看器
 │   │   ├── images/                  # 图片资源
 │   │   │   ├── icons/               # 图标文件
+│   │   │   │   ├── favicon.ico      # 网站图标
+│   │   │   │   ├── logo.svg         # 主Logo
+│   │   │   │   └── pwa/             # PWA图标集
+│   │   │   │       ├── icon-72x72.png
+│   │   │   │       ├── icon-96x96.png
+│   │   │   │       ├── icon-128x128.png
+│   │   │   │       ├── icon-192x192.png
+│   │   │   │       └── icon-512x512.png
 │   │   │   ├── backgrounds/         # 背景图片
+│   │   │   │   ├── hero-bg.jpg      # 主页背景
+│   │   │   │   └── pattern-bg.svg   # 图案背景
 │   │   │   └── illustrations/       # 插图素材
+│   │   │       ├── safety-hero.svg  # 安全主题插图
+│   │   │       └── success-animation.svg # 成功动画
 │   │   └── fonts/                   # 字体文件
-│   └── _headers                     # Cloudflare Pages头部配置
+│   │       ├── inter/               # Inter字体族
+│   │       └── source-han-sans/     # 思源黑体
+│   ├── components/                  # 可复用组件源代码
+│   │   ├── BaseComponent.js         # 基础组件类
+│   │   ├── VideoPlayer.js           # 视频播放器组件
+│   │   ├── QuizCard.js              # 答题卡片组件
+│   │   └── ProgressTracker.js       # 进度跟踪组件
+│   └── data/                        # 初始数据文件
+│       ├── questions/               # 题库数据
+│       │   ├── active-safety.json   # 主动安全题库
+│       │   └── unauthorized-ops.json # 违规操作题库
+│       ├── videos.json              # 视频配置数据
+│       └── config.json              # 应用配置数据
 ├── functions/                       # Cloudflare Pages Functions
 │   ├── api/                         # API路由
-│   │   ├── questions.js             # 题目API
-│   │   ├── stats.js                 # 统计API
-│   │   ├── videos.js                # 视频API
-│   │   └── admin/                   # 管理API
+│   │   ├── questions/               # 题目相关API
+│   │   │   ├── index.js             # 获取题目列表
+│   │   │   └── [id].js              # 获取单个题目
+│   │   ├── videos/                  # 视频相关API
+│   │   │   ├── index.js             # 获取视频列表
+│   │   │   └── [id].js              # 获取单个视频
+│   │   ├── stats/                   # 统计相关API
+│   │   │   ├── index.js             # 获取公开统计
+│   │   │   └── action.js            # 记录用户行为
+│   │   └── admin/                   # 管理API（需要认证）
 │   │       ├── auth.js              # 认证API
-│   │       ├── questions.js         # 题目管理API
+│   │       ├── questions/           # 题目管理API
+│   │       │   ├── index.js         # 题目CRUD操作
+│   │       │   └── [id].js          # 单个题目操作
+│   │       ├── videos/              # 视频管理API
+│   │       │   ├── index.js         # 视频CRUD操作
+│   │       │   └── [id].js          # 单个视频操作
 │   │       └── stats.js             # 统计管理API
-│   └── _middleware.js               # 中间件配置
-├── src/                             # 源代码目录（开发时使用）
-│   ├── components/                  # 可复用组件
-│   ├── pages/                       # 页面组件
-│   ├── utils/                       # 工具函数
-│   └── styles/                      # 样式源文件
-├── scripts/                         # 构建和部署脚本
+│   ├── _middleware.js               # 全局中间件
+│   └── lib/                         # 共享工具库
+│       ├── auth.js                  # 认证工具
+│       ├── validation.js            # 数据验证
+│       └── response.js              # 响应格式化
+├── dist/                            # 构建输出目录（自动生成）
+│   ├── index.html                   # 构建后的页面文件
+│   ├── assets/                      # 优化后的静态资源
+│   ├── manifest.json                # PWA配置文件
+│   ├── sw.js                        # Service Worker
+│   ├── _headers                     # Cloudflare Headers配置
+│   └── _redirects                   # Cloudflare重定向配置
+├── scripts/                         # 构建和工具脚本
 │   ├── build.js                     # 构建脚本
-│   ├── deploy.js                    # 部署脚本
-│   └── setup-kv.js                  # KV数据初始化脚本
-├── wrangler.toml                    # Cloudflare配置文件
-├── package.json                     # 项目依赖配置
+│   ├── dev-server.js                # 开发服务器
+│   ├── setup-kv.js                  # KV数据初始化脚本
+│   ├── validate-env.js              # 环境变量验证
+│   └── deploy-check.js              # 部署前检查
+├── tests/                           # 测试文件
+│   ├── unit/                        # 单元测试
+│   │   ├── utils.test.js            # 工具函数测试
+│   │   ├── components.test.js       # 组件测试
+│   │   └── api.test.js              # API测试
+│   ├── integration/                 # 集成测试
+│   │   ├── quiz-flow.test.js        # 答题流程测试
+│   │   └── video-play.test.js       # 视频播放测试
+│   ├── e2e/                         # 端到端测试
+│   │   ├── user-journey.test.js     # 用户完整流程测试
+│   │   └── admin-panel.test.js      # 管理面板测试
+│   └── fixtures/                    # 测试数据
+│       ├── sample-questions.json    # 示例题目数据
+│       └── mock-responses.json      # 模拟API响应
+├── config/                          # 配置文件目录
+│   ├── environments/                # 环境配置
+│   │   ├── development.js           # 开发环境配置
+│   │   ├── staging.js               # 测试环境配置
+│   │   └── production.js            # 生产环境配置
+│   ├── build.config.js              # 构建配置
+│   └── deployment.config.js         # 部署配置
+├── .env.example                     # 环境变量示例文件
+├── .env.local                       # 本地环境变量（不提交）
 ├── .gitignore                       # Git忽略文件
-└── README.md                        # 项目说明文档
+├── .gitattributes                   # Git属性配置
+├── .editorconfig                    # 编辑器配置
+├── .prettierrc                      # 代码格式化配置
+├── .eslintrc.js                     # ESLint配置
+├── wrangler.toml                    # Cloudflare Wrangler配置
+├── package.json                     # 项目依赖和脚本配置
+├── package-lock.json                # 依赖版本锁定文件
+├── LICENSE                          # 开源许可证
+├── README.md                        # 项目说明文档
+├── CHANGELOG.md                     # 版本更新日志
+└── CONTRIBUTING.md                  # 贡献指南
 ```
 
 ## 核心功能模块
@@ -839,85 +957,247 @@ async function updateStatsCounters(env, actionData) {
 }
 ```
 
-## 部署配置
+## GitHub自动化部署配置
 
-### wrangler.toml配置
+### GitHub Actions工作流配置
 
-```toml
-name = "safety-training-app"
-compatibility_date = "2024-01-01"
+项目通过GitHub Actions实现自动化部署到Cloudflare Pages，无需手动操作：
 
-[env.production]
-account_id = "your-account-id"
-pages_build_output_dir = "public"
+#### 主部署工作流 (.github/workflows/deploy.yml)
 
-[[env.production.kv_namespaces]]
-binding = "SAFETY_CONTENT"
-id = "your-content-kv-namespace-id"
+```yaml
+name: 部署到Cloudflare Pages
 
-[[env.production.kv_namespaces]]
-binding = "SAFETY_STATS"
-id = "your-stats-kv-namespace-id"
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
 
-[env.production.vars]
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD_HASH = "your-hashed-password"
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 安装依赖
+        run: npm ci
+        
+      - name: 代码质量检查
+        run: |
+          npm run lint
+          npm run type-check
+          
+      - name: 运行测试
+        run: npm run test:ci
+        
+      - name: 构建项目
+        run: npm run build
+        env:
+          NODE_ENV: production
+          
+      - name: 部署到Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: anquanpages
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 初始化KV数据（仅生产环境）
+        if: github.ref == 'refs/heads/main'
+        run: npm run setup:kv
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 ```
 
-### package.json配置
+#### 代码质量检查工作流 (.github/workflows/test.yml)
+
+```yaml
+name: 代码质量检查和测试
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16, 18, 20]
+        
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 设置Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          
+      - name: 安装依赖
+        run: npm ci
+        
+      - name: ESLint检查
+        run: npm run lint
+        
+      - name: 类型检查
+        run: npm run type-check
+        
+      - name: 单元测试
+        run: npm run test:unit
+        
+      - name: 集成测试
+        run: npm run test:integration
+        
+      - name: 代码覆盖率
+        run: npm run test:coverage
+        
+      - name: 上传覆盖率报告
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+```
+
+### 项目配置文件
+
+#### package.json脚本配置
 
 ```json
 {
-  "name": "safety-training-app",
+  "name": "anquanpages",
   "version": "1.0.0",
   "description": "安全管理交互页面应用",
   "scripts": {
-    "dev": "wrangler pages dev public --kv SAFETY_CONTENT --kv SAFETY_STATS",
+    "dev": "node scripts/dev-server.js",
     "build": "node scripts/build.js",
-    "deploy": "wrangler pages deploy public",
-    "setup": "node scripts/setup-kv.js"
+    "preview": "npm run build && wrangler pages dev dist",
+    "lint": "eslint src/ --ext .js,.html --fix",
+    "lint:check": "eslint src/ --ext .js,.html",
+    "type-check": "node scripts/validate-env.js",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest tests/unit/",
+    "test:integration": "jest tests/integration/",
+    "test:e2e": "playwright test",
+    "test:ci": "jest --coverage --ci --watchAll=false",
+    "test:coverage": "jest --coverage",
+    "setup:kv": "node scripts/setup-kv.js",
+    "validate:env": "node scripts/validate-env.js",
+    "deploy:check": "node scripts/deploy-check.js"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "@playwright/test": "^1.40.0",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "wrangler": "^3.15.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
 ```
 
-### 部署流程
+#### wrangler.toml配置
 
-1. **环境准备**
-   ```bash
-   # 安装依赖
-   npm install
-   
-   # 登录Cloudflare
-   npx wrangler login
-   
-   # 创建KV命名空间
-   npx wrangler kv:namespace create "SAFETY_CONTENT"
-   npx wrangler kv:namespace create "SAFETY_STATS"
-   ```
+```toml
+name = "anquanpages"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
 
-2. **初始化数据**
-   ```bash
-   # 运行数据初始化脚本
-   npm run setup
-   ```
+[env.production]
+kv_namespaces = [
+  { binding = "SAFETY_CONTENT", id = "your_content_kv_id", preview_id = "your_content_kv_preview_id" },
+  { binding = "SAFETY_STATS", id = "your_stats_kv_id", preview_id = "your_stats_kv_preview_id" }
+]
 
-3. **本地开发**
-   ```bash
-   # 启动开发服务器
-   npm run dev
-   ```
+[env.production.vars]
+ENVIRONMENT = "production"
+API_BASE_URL = "https://anquanpages.pages.dev"
 
-4. **构建和部署**
-   ```bash
-   # 构建项目
-   npm run build
-   
-   # 部署到Cloudflare Pages
-   npm run deploy
-   ```
+[env.preview]
+kv_namespaces = [
+  { binding = "SAFETY_CONTENT", preview_id = "your_content_kv_preview_id" },
+  { binding = "SAFETY_STATS", preview_id = "your_stats_kv_preview_id" }
+]
+
+[env.preview.vars]
+ENVIRONMENT = "preview"
+API_BASE_URL = "https://preview.anquanpages.pages.dev"
+```
+
+### 环境变量配置
+
+#### .env.example文件
+
+```bash
+# Cloudflare配置
+CLOUDFLARE_API_TOKEN=your_api_token_here
+CLOUDFLARE_ACCOUNT_ID=your_account_id_here
+
+# KV命名空间ID
+SAFETY_CONTENT_KV_ID=your_content_kv_namespace_id
+SAFETY_STATS_KV_ID=your_stats_kv_namespace_id
+
+# 管理员认证
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD_HASH=your_hashed_password
+
+# 应用配置
+ENVIRONMENT=development
+API_BASE_URL=http://localhost:8788
+```
+
+### GitHub Secrets配置
+
+在GitHub仓库设置中需要配置以下Secrets：
+
+1. **CLOUDFLARE_API_TOKEN**: Cloudflare API令牌
+2. **CLOUDFLARE_ACCOUNT_ID**: Cloudflare账户ID
+3. **ADMIN_PASSWORD_HASH**: 管理员密码哈希值
+
+### 自动化部署流程说明
+
+1. **代码推送触发**
+   - 推送到`main`分支：自动部署到生产环境
+   - 推送到`develop`分支：自动部署到预览环境
+   - 创建Pull Request：自动构建预览版本
+
+2. **构建流程**
+   - 安装项目依赖
+   - 执行代码质量检查
+   - 运行自动化测试
+   - 构建生产版本
+   - 部署到Cloudflare Pages
+
+3. **部署完成后**
+   - 自动初始化KV数据（生产环境）
+   - 发送部署状态通知
+   - 更新GitHub部署状态
+
+4. **回滚机制**
+   - 通过GitHub界面可查看历史部署
+   - 支持快速回滚到指定版本
+   - 部署失败时自动停止流程
 
 ## 数据结构设计
 
@@ -1219,7 +1499,7 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-### PWA配置 (public/manifest.json)
+### PWA配置 (src/manifest.json)
 
 ```json
 {
@@ -1233,42 +1513,27 @@ self.addEventListener('fetch', event => {
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/images/icons/icon-72x72.png",
+      "src": "/assets/images/icons/pwa/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/assets/images/icons/icon-96x96.png",
+      "src": "/assets/images/icons/pwa/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/assets/images/icons/icon-128x128.png",
+      "src": "/assets/images/icons/pwa/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/assets/images/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/images/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/images/icons/icon-192x192.png",
+      "src": "/assets/images/icons/pwa/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/assets/images/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/images/icons/icon-512x512.png",
+      "src": "/assets/images/icons/pwa/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -1278,105 +1543,55 @@ self.addEventListener('fetch', event => {
 }
 ```
 
-## 部署与维护计划
+## 项目文件结构说明
 
-### Cloudflare Pages部署流程
+### 目录结构详解
 
-应用将部署在Cloudflare Pages平台上，利用其全球分布式网络提供低延迟访问：
+1. **源代码组织** (`src/`)
+   - 采用模块化结构，便于开发和维护
+   - 分离页面、组件、工具和数据
+   - 支持构建时优化和代码分割
 
-1. **准备工作**
-   - 创建Cloudflare账户并激活Pages服务
-   - 设置自定义域名（可选）
-   - 创建KV命名空间用于数据存储
+2. **构建输出** (`dist/`)
+   - 自动生成的优化后文件
+   - 包含压缩的CSS、JS和优化的图片
+   - 配置Cloudflare特定文件（_headers、_redirects）
 
-2. **项目配置**
-   - 配置wrangler.toml文件
-   - 设置环境变量和KV绑定
-   - 配置构建和部署脚本
+3. **API函数** (`functions/`)
+   - 使用Cloudflare Pages Functions
+   - 支持嵌套路由和动态参数
+   - 包含中间件和共享工具库
 
-3. **数据初始化**
-   - 运行KV数据初始化脚本
-   - 上传初始题库和视频数据
-   - 设置管理员账户
+4. **自动化配置** (`.github/`)
+   - GitHub Actions工作流定义
+   - 支持自动化测试和部署
+   - 包含Issue和PR模板
 
-4. **部署流程**
-   - 连接Git仓库到Cloudflare Pages
-   - 配置自动部署触发器
-   - 设置构建命令和输出目录
+5. **测试体系** (`tests/`)
+   - 完整的测试覆盖（单元、集成、E2E）
+   - 支持CI/CD集成
+   - 包含测试数据和模拟响应
 
-5. **监控和维护**
-   - 配置错误监控和日志记录
-   - 设置性能监控和报警
-   - 定期备份数据和配置
+### 工程化特性
 
-### 性能优化策略
+1. **代码质量保证**
+   - ESLint代码检查
+   - Prettier代码格式化
+   - TypeScript类型检查支持
 
-1. **资源优化**
-   - 压缩CSS和JavaScript文件
-   - 优化图片格式和大小
-   - 实现资源懒加载
+2. **自动化测试**
+   - Jest单元和集成测试
+   - Playwright端到端测试
+   - 代码覆盖率报告
 
-2. **缓存策略**
-   - 配置适当的缓存头
-   - 实现Service Worker缓存
-   - 使用CDN加速静态资源
+3. **开发体验优化**
+   - 热重载开发服务器
+   - 环境变量管理
+   - 构建优化和压缩
 
-3. **代码优化**
-   - 实现代码分割和按需加载
-   - 优化关键渲染路径
-   - 减少DOM操作和重绘
+4. **部署流程简化**
+   - 一键GitHub部署
+   - 自动环境区分
+   - 失败回滚机制
 
-### 安全措施
-
-1. **数据安全**
-   - 实现数据加密和安全传输
-   - 配置适当的CORS策略
-   - 实现输入验证和防护
-
-2. **访问控制**
-   - 实现强密码策略
-   - 配置IP白名单（可选）
-   - 实现会话管理和超时
-
-3. **监控和审计**
-   - 记录所有管理操作
-   - 监控异常访问模式
-   - 实现安全事件报警
-
-## 未来发展规划
-
-### 功能扩展计划
-
-1. **内容丰富**
-   - 扩充题库，增加更多安全知识领域
-   - 添加更多高质量视频内容
-   - 开发情景模拟测试
-
-2. **用户体验增强**
-   - 实现个性化学习路径
-   - 添加游戏化元素
-   - 优化移动端体验
-
-3. **社交功能**
-   - 实现团队学习模式
-   - 添加讨论和评论功能
-   - 开发安全知识竞赛
-
-### 技术升级计划
-
-1. **架构优化**
-   - 考虑迁移到现代前端框架
-   - 实现微前端架构
-   - 优化API设计和性能
-
-2. **数据分析**
-   - 集成高级分析工具
-   - 实现机器学习推荐
-   - 开发预测性分析
-
-3. **平台扩展**
-   - 开发移动应用
-   - 集成第三方系统
-   - 支持多租户架构
-
-这个修改后的项目计划完全适配了Cloudflare Pages平台的部署要求，采用了现代的前端架构和Pages Functions，提供了完整的开发、部署和维护指南。
+这个文件结构确保了项目的可维护性、可扩展性和部署的自动化，完全适配Cloudflare Pages平台的特性和限制。
